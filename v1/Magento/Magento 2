@@ -47,12 +47,6 @@ server {
     try_files $uri $uri/ /get.php$is_args$args;
   }
 
-  #rewrite ^/blog$ /blog/$1 permanent;
-
-  #location /blog/ {
-  #  try_files $uri $uri/ /blog/index.php?$args;
-  #}
-
   try_files $uri $uri/ /index.php?$args;
   index index.php index.html;
 
