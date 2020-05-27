@@ -19,7 +19,7 @@ server {
     return 200;
   }
 
-  # Enable http to https redirection
+  # Redirect http to https
   #if ($scheme != "https") {
   #  rewrite ^ https://$host$uri permanent;
   #}
@@ -30,6 +30,10 @@ server {
   }
 
   {{basic_auth}}
+
+  location /admin-dev/ {
+    try_files $uri $uri/ /admin-dev/index.php?$args;
+  }
 
   try_files $uri $uri/ /index.php?$args;
   index index.php index.html;
