@@ -19,9 +19,10 @@ server {
     return 200;
   }
 
-  if ($scheme != "https") {
-    rewrite ^ https://$host$uri permanent;
-  }
+  # Enable http to https redirection
+  #if ($scheme != "https") {
+  #  rewrite ^ https://$host$uri permanent;
+  #}
 
   location ~ /.well-known {
     auth_basic off;
