@@ -53,27 +53,17 @@ server {
   try_files $uri $uri/ /index.php?$args;
   index index.php index.html;
 
-  location ~ \.php2$ {
-    include fastcgi_params;
-    fastcgi_intercept_errors on;
-    fastcgi_index index.php;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    try_files $uri =404;
-    fastcgi_read_timeout 3600;
-    fastcgi_send_timeout 3600;
-    fastcgi_param HTTPS $fastcgi_https;
-    {{php_fpm_listener}}
-    {{php_settings}}
-  }
-
   location ~ ^\/(?:index|remote|public|cron|core\/ajax\/update|status|ocs\/v[12]|updater\/.+|oc[ms]-provider\/.+)\.php(?:$|\/) {
+    include fastcgi_params;
     fastcgi_split_path_info ^(.+?\.php)(\/.*|)$;
     set $path_info $fastcgi_path_info;
     try_files $fastcgi_script_name =404;
-    include fastcgi_params;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     fastcgi_param PATH_INFO $path_info;
     fastcgi_param front_controller_active true;
+    fastcgi_read_timeout 3600;
+    fastcgi_send_timeout 3600;
+    fastcgi_param HTTPS $fastcgi_https;
     {{php_fpm_listener}}
     {{php_settings}}
   }
