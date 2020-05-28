@@ -11,6 +11,8 @@ server {
   {{nginx_access_log}}
   {{nginx_error_log}}
 
+  add_header Strict-Transport-Security "max-age=15552000; includeSubDomains";
+
   if ($bad_bot = 1) {
     return 403;
   }
